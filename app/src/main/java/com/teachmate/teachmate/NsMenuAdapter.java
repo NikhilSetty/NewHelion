@@ -10,9 +10,6 @@ import android.widget.TextView;
 
 import com.teachmate.teachmate.models.NsItemModel;
 
-/**
- * Created by NiRavishankar on 1/15/2015.
- */
 public class NsMenuAdapter extends ArrayAdapter<NsItemModel> {
 
     private final Context context;

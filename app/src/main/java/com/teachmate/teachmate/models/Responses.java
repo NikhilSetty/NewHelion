@@ -1,8 +1,6 @@
 package com.teachmate.teachmate.models;
 
-/**
- * Created by NiRavishankar on 12/24/2014.
- */
+
 public class Responses {
 
     public String ResponseId;
