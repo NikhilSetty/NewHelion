@@ -10,9 +10,7 @@ import com.teachmate.teachmate.DBClasses.DbHelper;
 import com.teachmate.teachmate.DBClasses.DbTableStrings;
 import com.teachmate.teachmate.models.UserModel;
 
-/**
- * Created by ASreenivasa on 05-Jan-15.
- */
+
 public class UserModelDBHandler {
 
 

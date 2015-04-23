@@ -8,9 +8,7 @@ import android.widget.Toast;
 import com.teachmate.teachmate.DBClasses.DbHelper;
 import com.teachmate.teachmate.DBClasses.DbTableStrings;
 
-/**
- * Created by archon on 25-01-2015.
- */
+
 public class NotifsTableDbHandler {
     private static DbHelper dbHelper;
     private static SQLiteDatabase db;

@@ -1,8 +1,6 @@
 package com.teachmate.teachmate.models;
 
-/**
- * Created by NiRavishankar on 12/12/2014.
- */
+
 public class Requests {
 
     public String RequestID;

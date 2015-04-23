@@ -156,7 +156,7 @@ public class GcmIntentService extends IntentService {
     private void sendNotification(String msg) {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo_notif);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.notificationlogo);
 
 
         if (intType == 2) {
@@ -177,7 +177,7 @@ public class GcmIntentService extends IntentService {
 
             NotificationCompat.Builder mBuilder =
                     new NotificationCompat.Builder(this)
-                            .setSmallIcon(R.drawable.logo_notif)
+                            .setSmallIcon(R.drawable.notificationlogo)
                             .setLargeIcon(bitmap)
                             .setContentTitle("New Answer")
                             .setStyle(new NotificationCompat.BigTextStyle()
@@ -197,7 +197,7 @@ public class GcmIntentService extends IntentService {
 
             NotificationCompat.Builder mBuilder =
                     new NotificationCompat.Builder(this)
-                            .setSmallIcon(R.drawable.logo_notif)
+                            .setSmallIcon(R.drawable.notificationlogo)
                             .setLargeIcon(bitmap)
                             .setContentTitle("New Request")
                             .setStyle(new NotificationCompat.BigTextStyle()
@@ -223,7 +223,7 @@ public class GcmIntentService extends IntentService {
 
             NotificationCompat.Builder mBuilder =
                     new NotificationCompat.Builder(this)
-                            .setSmallIcon(R.drawable.logo_notif)
+                            .setSmallIcon(R.drawable.notificationlogo)
                             .setContentTitle("New Response")
                             .setLargeIcon(bitmap)
                             .setStyle(new NotificationCompat.BigTextStyle()

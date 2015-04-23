@@ -15,9 +15,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-/**
- * Created by ASreenivasa on 05-Jan-15.
- */
+
 public class RequestsDBHandler {
 
     private static DbHelper dbHelper;

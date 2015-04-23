@@ -12,9 +12,7 @@ import com.squareup.picasso.Picasso;
 import com.teachmate.teachmate.R;
 import com.teachmate.teachmate.models.Responses;
 
-/**
- * Created by NiRavishankar on 12/24/2014.
- */
+
 public class ResponsesArrayAdapter extends ArrayAdapter<Responses> {
     private final Context context;
     private final Responses[] values;
