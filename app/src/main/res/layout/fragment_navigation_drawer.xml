@@ -20,7 +20,7 @@
         android:layout_below="@+id/spacerView1"
         android:onClick="UpdateFragment"
         android:layout_height="wrap_content"
-        android:background="#FF7C21">
+        android:background="#2196F3">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
         android:layout_below="@+id/userInfoNavigationDrawer"
         android:layout_marginBottom="1dp"
         android:layout_marginTop="1dp"
-        android:background="#FF7C21" />
+        android:background="#2196F3" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -77,12 +77,4 @@
         android:background="#f26a6a6a"
         android:layout_above="@+id/imageView8" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:id="@+id/imageView8"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/sapth_gray"
-        android:background="#f26a6a6a" />
 </RelativeLayout>
