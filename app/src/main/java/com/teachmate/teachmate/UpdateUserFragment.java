@@ -87,8 +87,8 @@ public class UpdateUserFragment extends Fragment {
         textViewEmailId.setText(user.EmailId);
 
         editTextFirstName.setText(user.FirstName);
-        editTextLastName.setText(user.LastName);
-        editTextPhoneNumber.setText(user.PhoneNumber);
+        //editTextLastName.setText(user.LastName);
+        //editTextPhoneNumber.setText(user.PhoneNumber);
 
         updateUser.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -214,8 +214,8 @@ public class UpdateUserFragment extends Fragment {
                     Toast.makeText(activity.getApplicationContext(), "Update Successful", Toast.LENGTH_SHORT).show();
 
                     user.FirstName = _editTextFirstName;
-                    user.LastName = _editTextLastName;
-                    user.PhoneNumber = _editTextPhoneNumber;
+                    //user.LastName = _editTextLastName;
+                    //user.PhoneNumber = _editTextPhoneNumber;
 
                     UserModelDBHandler.UpdateUserData(activity.getApplicationContext(), user);
 
