@@ -16,16 +16,6 @@ public class DbHelper extends SQLiteOpenHelper{
         db.execSQL(Schema.CREATE_TABLE_DEVICE_INFO);
         db.execSQL(Schema.CREATE_TABLE_Profile);
         db.execSQL(Schema.CREATE_TABLE_REQUESTS);
-        db.execSQL(Schema.CREATE_TABLE_QUESTION_MODEL);
-        db.execSQL(Schema.CREATE_TABLE_ANSWER_MODEL);
-        db.execSQL(Schema.CREATE_TABLE_MY_QUESTIONS);
-        db.execSQL(Schema.CREATE_TABLE_CHAT_INFO);
-        db.execSQL(Schema.CREATE_TABLE_CHAT_ID_MAPPING);
-        db.execSQL(Schema.CREATE_TABLE_NS_ITEM_MODEL);
-        db.execSQL(Schema.INSERT_NOTIFICATION_CONSTANT1);
-        db.execSQL(Schema.INSERT_NOTIFICATION_CONSTANT2);
-        db.execSQL(Schema.INSERT_NOTIFICATION_CONSTANT3);
-        db.execSQL(Schema.INSERT_NOTIFICATION_CONSTANT4);
         Log.v("created " , "DB");
     }
 

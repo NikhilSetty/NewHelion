@@ -16,12 +16,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.teachmate.teachmate.DBHandlers.ChatIdMapDBHandler;
 import com.teachmate.teachmate.DBHandlers.RequestsDBHandler;
 import com.teachmate.teachmate.DBHandlers.UserModelDBHandler;
 import com.teachmate.teachmate.R;
 import com.teachmate.teachmate.TempDataClass;
-import com.teachmate.teachmate.models.ChatIdMap;
 import com.teachmate.teachmate.models.Requests;
 import com.teachmate.teachmate.models.Responses;
 import com.teachmate.teachmate.models.UserModel;
@@ -130,72 +128,12 @@ public class ResponseDisplayActivity extends Fragment {
 
         acceptResponse.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                int existingChatId = ChatIdMapDBHandler.CheckUserIdAndReturnChatId(getActivity()
-                        .getApplicationContext(), currentResponse.ResponseUserId);
-                if (existingChatId > 0) {
-                    /*Intent i = new Intent(getActivity().getApplicationContext(), ChatActivity.class);
-                    i.putExtra("ChatId", "" + existingChatId);
-                    startActivity(i);*/
-                } else {
-                    GetChatId chat = new GetChatId();
-                    chat.execute("http://teach-mate.azurewebsites.net/Chat/ChatReg");
-                }
             }
         });
 
         return layout;
 
     }
-
-    /*
-     * private class HttpGetter extends AsyncTask<String, Void, String> {
-     * @Override protected String doInBackground(String... urls) { StringBuilder
-     * builder = new StringBuilder(); HttpClient client = new
-     * DefaultHttpClient(); HttpGet httpGet = new HttpGet(urls[0]); String line
-     * = ""; try { HttpResponse response = client.execute(httpGet); StatusLine
-     * statusLine = response.getStatusLine(); int statusCode =
-     * statusLine.getStatusCode(); if (statusCode == 200) { HttpEntity entity =
-     * response.getEntity(); InputStream content = entity.getContent();
-     * BufferedReader reader = new BufferedReader( new
-     * InputStreamReader(content)); while ((line = reader.readLine()) != null) {
-     * builder.append(line); } Log.v("Getter", "Your data: " +
-     * builder.toString()); //response data } else { Log.e("Getter",
-     * "Failed to get data"); } } catch (ClientProtocolException e) {
-     * e.printStackTrace(); } catch (IOException e) { e.printStackTrace(); }
-     * return builder.toString(); }
-     * @Override protected void onPostExecute(String result) { currentResponse =
-     * GetObjectsFromResponse(result); if(currentResponse != null){
-     * responseUserName.setText(currentResponse.ResponseUserName);
-     * responseString.setText(currentResponse.ResponseString);
-     * responseUserProfession.setText(currentResponse.ResponseUserProfession); }
-     * } } private Responses GetObjectsFromResponse(String result) { try {
-     * //JSONObject employee =(new
-     * JSONObject(response)).getJSONObject("Requests"); JSONObject temp = (new
-     * JSONObject(result)).getJSONObject("Response"); Responses response = new
-     * Responses(); response.RequestId = temp.getString("RequestId") != null ?
-     * temp.getString("RequestId") : null; response.ResponseId=
-     * temp.getString("ResponseId") != null ? temp.getString("ResponseId"):
-     * null; response.ResponseString= temp.getString("ResponseString") != null ?
-     * temp.getString("ResponseString"): null; response.ResponseUserId =
-     * temp.getString("ResponseUserId") != null ?
-     * temp.getString("ResponseUserId"): null; response.ResponseUserName =
-     * temp.getString("ResponseUserName") != null ?
-     * temp.getString("ResponseUserName"): null; response.ResponseUserProfession
-     * = temp.getString("ResponseUserProfession") != null ?
-     * temp.getString("ResponseUserProfession"): null;
-     * response.ResponseUserProfilePhotoServerPath =
-     * temp.getString("ResponseUserProfilePhotoServerPath") != null ?
-     * temp.getString("ResponseUserProfilePhotoServerPath"): null; return
-     * response; } catch(Exception e){
-     * Toast.makeText(getActivity().getApplicationContext(), e.getMessage(),
-     * Toast.LENGTH_LONG).show(); return null; } }
-     */
-
-    /*
-     * @Override public boolean onCreateOptionsMenu(Menu menu) { // Inflate the
-     * menu; this adds items to the action bar if it is present.
-     * getMenuInflater().inflate(R.menu.menu_response, menu); return true; }
-     */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -272,17 +210,6 @@ public class ResponseDisplayActivity extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            ChatIdMap newChatId = new ChatIdMap();
-
-            newChatId.chatId = result;
-            newChatId.userId = currentResponse.ResponseUserId;
-            newChatId.userName = currentResponse.ResponseUserName;
-
-            ChatIdMapDBHandler.InsertChatIdMap(getActivity().getApplicationContext(), newChatId);
-
-            /*Intent i = new Intent(getActivity().getApplicationContext(), ChatActivity.class);
-            i.putExtra("ChatId", newChatId.chatId);
-            startActivity(i);*/
         }
     }
 }

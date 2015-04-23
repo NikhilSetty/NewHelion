@@ -11,14 +11,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -29,11 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
-import com.teachmate.teachmate.DBHandlers.QuestionModelDBHandler;
 import com.teachmate.teachmate.DBHandlers.RequestsDBHandler;
 import com.teachmate.teachmate.Requests.MyRequests;
-import com.teachmate.teachmate.models.CategoryList;
-import com.teachmate.teachmate.models.Question_Model;
 import com.teachmate.teachmate.models.Requests;
 
 import org.apache.http.HttpResponse;
@@ -41,7 +35,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -55,7 +48,6 @@ import java.util.Date;
 
 public class HomeFragment extends Fragment {
     ArrayList<String> myquestionids = new ArrayList<String>();
-    Question_Model myquestionsdb = new Question_Model();
     public String created_time;
     public String questionmessage;
     public String result;
@@ -110,12 +102,6 @@ public class HomeFragment extends Fragment {
 
         buttonNewRequest = (Button) layout.findViewById(R.id.buttonNewRequest);
         buttonNewQuestion = (Button) layout.findViewById(R.id.buttonNewQuestion);
-        buttonNewQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                generatenewquestion();
-            }
-        });
 
         newRequest = new Requests();
 
@@ -131,64 +117,6 @@ public class HomeFragment extends Fragment {
         });
 
         return layout;
-    }
-
-    public void generatenewquestion(){
-        LayoutInflater factory = LayoutInflater.from(getActivity());
-        final View promptview = factory.inflate(
-                R.layout.ask_question_dialogue, null);
-        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-        alertDialog.setView(promptview);
-        alertDialog.setMessage("Ask a new Question!");
-        final EditText etquestion=(EditText)promptview.findViewById(R.id.etquestion_ask_question);
-        final AutoCompleteTextView etcategory=(AutoCompleteTextView)promptview.findViewById(R.id.etcategory_ask_question);
-        final CategoryList categorylist1=new CategoryList();
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_dropdown_item_1line,categorylist1.CATEGORIES);
-        etcategory.setAdapter(adapter);
-        promptview.findViewById(R.id.ask_button).setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                //your business logic
-                minutes=Integer.toString(c.get(Calendar.MINUTE));//getting time from calendar object
-                hour=Integer.toString(c.get(Calendar.HOUR));
-                seconds=Integer.toString(c.get(Calendar.SECOND));
-                month=Integer.toString(c.get(Calendar.MONTH)+1);
-                day=Integer.toString(c.get(Calendar.DAY_OF_MONTH));
-                year=Integer.toString(c.get(Calendar.YEAR));
-                created_time=day+"/"+month+"/"+year+" "+hour+":"+minutes+":"+seconds;
-                questionmessage=etquestion.getText().toString();
-                category=etcategory.getText().toString();
-                isInCategory=categorylist1.checkinarray(categorylist1.CATEGORIES,category);
-                if(isInCategory) {
-                    if (TextUtils.isEmpty(category) || TextUtils.isEmpty(questionmessage)) {
-                        Toast.makeText(getActivity(), "The above fields cannot be empty.Please fill both the fields and retry", Toast.LENGTH_LONG).show();
-                    } else {
-                        ask_question_async ask = new ask_question_async();
-                        ask.execute("http://teach-mate.azurewebsites.net/QuestionForum/AddQuestion");
-                        alertDialog.dismiss();
-
-                    }
-                }else{
-                    Toast.makeText(getActivity(),"Please select an option from the defined categories",Toast.LENGTH_LONG).show();
-                }
-
-
-
-
-            }
-        });
-        promptview.findViewById(R.id.cancel_button).setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-
-            }
-        });
-
-        alertDialog.show();
-
     }
 
     @Override
@@ -381,101 +309,6 @@ public class HomeFragment extends Fragment {
 
         inputStream.close();
         return result;
-    }
-    public class ask_question_async extends AsyncTask<String,Void,String> {
-        ProgressDialog dialog = new ProgressDialog(getActivity());
-
-        @Override
-        protected void onPreExecute() {
-            //
-            super.onPreExecute();
-
-            dialog.setProgressStyle(2);
-            dialog.setMessage("Please wait while we post your Question.");
-            dialog.show();
-
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            InputStream inputStream = null;
-
-            HttpClient httpClient=new DefaultHttpClient();
-            HttpPost post= new HttpPost(params[0]);
-
-
-            String json="";
-            try {
-                JSONObject jsonObject=new JSONObject();
-                jsonObject.put("UserId", TempDataClass.serverUserId);
-                jsonObject.put("TimeOfQuestion",created_time);
-                jsonObject.put("QuestionMessage",questionmessage);
-                jsonObject.put("Category",category);
-                jsonObject.put("QuestionBoardId","4");
-
-
-                json=jsonObject.toString();
-                StringEntity se=new StringEntity(json);
-                post.setEntity(se);
-                HttpResponse response=httpClient.execute(post);
-                inputStream = response.getEntity().getContent();
-                if(inputStream != null)
-
-                    result = convertInputStreamToString(inputStream);
-                else
-                    result = "Did not work!";
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            dialog.dismiss();
-            myquestionsdb.setQuestion_id(s);
-            myquestionsdb.setQuestion(questionmessage);
-            myquestionsdb.setAsked_time(created_time);
-            myquestionsdb.setUsername(TempDataClass.userName);
-            myquestionsdb.setImage("image");
-            myquestionsdb.setCategory(category);
-            addtomyquestionsdb();
-
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.container, TempDataClass.fragmentStack.lastElement());
-            TempDataClass.fragmentStack.pop();
-            ft.commit();
-
-        }
-
-        private  String convertInputStreamToString(InputStream inputStream) throws IOException{
-            BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
-            String line = "";
-            String result = "";
-            while((line = bufferedReader.readLine()) != null)
-                result += line;
-
-            inputStream.close();
-            return result;
-
-        }
-
-    }
-    public void addtomyquestionsdb(){
-        QuestionModelDBHandler addtodb=new QuestionModelDBHandler();
-        // public static final AnswerModelDBHandler addanswertodb=new AnswerModelDBHandler();
-        //  addtodb.InsertQuestionModel(getActivity(),dbadd);
-        addtodb.Insertintomyquestionstable(getActivity(),myquestionsdb);
-        //  addanswertodb.InsertAnswerList(getApplicationContext(),answerlist);
-
-
-        Toast.makeText(getActivity(),"Question Posted Successfully",Toast.LENGTH_SHORT).show();
-
     }
 
 }
