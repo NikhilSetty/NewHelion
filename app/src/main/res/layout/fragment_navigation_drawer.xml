@@ -20,7 +20,7 @@
         android:layout_below="@+id/spacerView1"
         android:onClick="UpdateFragment"
         android:layout_height="wrap_content"
-        android:background="#ff3c3c3c">
+        android:background="#FF7C21">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
         android:layout_below="@+id/userInfoNavigationDrawer"
         android:layout_marginBottom="1dp"
         android:layout_marginTop="1dp"
-        android:background="#f26a6a6a" />
+        android:background="#FF7C21" />
 
     <ListView
         android:layout_width="wrap_content"

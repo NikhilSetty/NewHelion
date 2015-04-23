@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/HelionHelp.iml" filepath="$PROJECT_DIR$/HelionHelp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NewHelion.iml" filepath="$PROJECT_DIR$/NewHelion.iml" />
       <module fileurl="file://$PROJECT_DIR$/Teach.iml" filepath="$PROJECT_DIR$/Teach.iml" />
       <module fileurl="file://$PROJECT_DIR$/TeachMate.iml" filepath="$PROJECT_DIR$/TeachMate.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
