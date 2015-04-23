@@ -1,7 +1,6 @@
 package com.teachmate.teachmate.SignUp;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
@@ -12,11 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.teachmate.teachmate.LoginActivity;
 import com.teachmate.teachmate.R;
 import com.teachmate.teachmate.TempDataClass;
 
@@ -119,7 +116,7 @@ public class CredentialDetailsFragment extends Fragment implements onNextPressed
         }
 
         NewSignUpActicity.userModel.EmailId = _editTextEmailId;
-        NewSignUpActicity.userModel.password = _editTextPassword;
+        //NewSignUpActicity.userModel.password = _editTextPassword;
 
         Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.containerFrame);
 

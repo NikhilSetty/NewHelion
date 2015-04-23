@@ -291,14 +291,14 @@ public class SignUpActivity extends ActionBarActivity {
         }
 
         userData.FirstName = _editTextFirstName;
-        userData.LastName= _editTextLastName;
-        userData.PhoneNumber = _editTextPhoneNumber;
-        userData.Profession = _editTextProfession;
+        //userData.LastName= _editTextLastName;
+        //userData.PhoneNumber = _editTextPhoneNumber;
+        //userData.Profession = _editTextProfession;
         userData.EmailId = _editTextEmailId;
         userData.Address1 = _editTextAddress1;
         userData.PinCode1 = _editTextPinCode1;
-        userData.Address2 = _editTextAddress2;
-        userData.PinCode2 = _editTextPinCode2;
+        //userData.Address2 = _editTextAddress2;
+        //userData.PinCode2 = _editTextPinCode2;
 
         HttpGetterPinCode1Handler getter1 = new HttpGetterPinCode1Handler();
         getter1.execute("http://maps.google.com/maps/api/geocode/xml?address='" + _editTextPinCode1 + "'&sensor=false");
@@ -464,8 +464,7 @@ public class SignUpActivity extends ActionBarActivity {
                 if(!(result.isEmpty() || result.contains("ERROR"))){
                     //Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
 
-                    TempDataClass.userName = userData.FirstName + userData.LastName;
-                    TempDataClass.userProfession = userData.Profession;
+                    TempDataClass.userName = userData.FirstName;
                     TempDataClass.serverUserId = result;
 
                     userData.ServerUserId = result;

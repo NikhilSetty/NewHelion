@@ -282,7 +282,7 @@ public class HomeFragment extends Fragment {
             newRequest.RequestID = result;
             newRequest.RequesteUserId = TempDataClass.serverUserId;
             newRequest.RequestUserName = TempDataClass.userName;
-            newRequest.RequestUserProfession = TempDataClass.userProfession;
+            //newRequest.RequestUserProfession = TempDataClass.userProfession;
             RequestsDBHandler.InsertRequests(getActivity().getApplicationContext(), newRequest);
             Toast.makeText(getActivity().getApplicationContext(), "Request Generated Successfully!", Toast.LENGTH_LONG).show();
             progressDialog.dismiss();
