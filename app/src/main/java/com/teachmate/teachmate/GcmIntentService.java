@@ -65,6 +65,7 @@ public class GcmIntentService extends IntentService {
     String userId;
     int intType;
     String responseId;
+    String requestMesssage;
 
     String responseUserProfession;
     String responseUserProfilePath;
@@ -121,6 +122,7 @@ public class GcmIntentService extends IntentService {
                         message = extras.getString("message");
                         requestId = extras.getString("requestId");
                         username = extras.getString("userName");
+                        requestMesssage = extras.getString("message");
                         break;
                     case 4://New Response Notification
                         message = extras.getString("ResponseMessage");
@@ -191,6 +193,8 @@ public class GcmIntentService extends IntentService {
             Intent requestIntent = new Intent(this, MainActivity.class);
             requestIntent.putExtra("type", "request");
             requestIntent.putExtra("NotificationRequestId", requestId);
+            requestIntent.putExtra("NotificationRequestMessage", requestMesssage);
+            requestIntent.putExtra("NotificationRequestUserName", username);
 
             PendingIntent contentIntent = PendingIntent.getActivity(this, Integer.parseInt(requestId),
                     requestIntent, PendingIntent.FLAG_ONE_SHOT);

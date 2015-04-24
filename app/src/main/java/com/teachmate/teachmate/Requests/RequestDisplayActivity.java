@@ -54,6 +54,8 @@ public class RequestDisplayActivity extends Fragment {
 
     Requests currentRequest;
     String notificationRequestId;
+    String notificationRequestMessage;
+    String notificationRequestUserName;
 
     String responseMessageString;
 
@@ -96,6 +98,8 @@ public class RequestDisplayActivity extends Fragment {
         try {
             Bundle args = getArguments();
             notificationRequestId = args.getString("NotificationRequestId");
+            notificationRequestUserName = args.getString("NotificationRequestUserName");
+            notificationRequestMessage = args.getString("NotificationRequestMessage");
         }catch(Exception e){
             Log.e("Error", e.getMessage());
         }
@@ -120,12 +124,19 @@ public class RequestDisplayActivity extends Fragment {
             }
         }
         else{
-            progressDialog.setMessage("Loading Request...");
-            progressDialog.show();
+            /*progressDialog.setMessage("Loading Request...");
+            progressDialog.show();*/
             UserModel cUser = UserModelDBHandler.ReturnValue(getActivity().getApplicationContext());
             TempDataClass.serverUserId = cUser.ServerUserId;
-            HttpGetter getter = new HttpGetter();
-            getter.execute("http://teach-mate.azurewebsites.net/Request/GetRequestDetails?id=" + notificationRequestId);
+            currentRequest.RequestID = notificationRequestId;
+            currentRequest.RequestString = notificationRequestMessage;
+            currentRequest.RequestUserName = notificationRequestUserName;
+            requestUserName.setText(notificationRequestUserName);
+            requestString.setText(notificationRequestMessage);
+            requestUserProfession.setText("");
+            requestTime.setText("");
+            /*HttpGetter getter = new HttpGetter();
+            getter.execute("http://teach-mate.azurewebsites.net/Request/GetRequestDetails?id=" + notificationRequestId);*/
             //TODO
         }
 
@@ -245,7 +256,7 @@ public class RequestDisplayActivity extends Fragment {
                         else{
                             responseMessageString = responseEditText.getText().toString();
                             HttpAsyncTask post = new HttpAsyncTask();
-                            post.execute("http://teach-mate.azurewebsites.net/Response/SendResponseNotification");
+                            post.execute("http://helion-helloworld-java.gids.cf.helion-dev.com/AddResponse");
                             progressDialog.setMessage("Generating Response...");
                             progressDialog.show();
                         }
@@ -278,7 +289,7 @@ public class RequestDisplayActivity extends Fragment {
             jsonObject.put("UserId", TempDataClass.serverUserId);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH-mm-ss");
             String currentDateandTime = sdf.format(new Date());
-            jsonObject.put("TimeOfResponse", currentDateandTime);
+            jsonObject.put("TimeGenerated", currentDateandTime);
             jsonObject.put("Message", responseMessageString);
             json = jsonObject.toString();
 

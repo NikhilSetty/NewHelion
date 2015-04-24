@@ -114,7 +114,7 @@ public class RequestsDisplayActivity extends Fragment {
                 try {
                     lastRequestId = resumeList.get(listViewRequests.getCount() - 2).RequestID;
 
-                    new loadmorelistview().execute("http://teach-mate.azurewebsites.net/Request/GetAllRequestsAssigned?id=" + TempDataClass.serverUserId + "&lastRequestId=" + lastRequestId);
+                    //new loadmorelistview().execute("http://helion-helloworld-java.gids.cf.helion-dev.com/GetRequest?UserId=" + TempDataClass.serverUserId);
                 }catch(Exception ex){
                     progressDialog.dismiss();
                     //Log.e("Request", ex.getMessage());
@@ -138,7 +138,7 @@ public class RequestsDisplayActivity extends Fragment {
 
             if(new CommonMethods().hasActiveInternetConnection(activity)){
                 HttpGetter getter = new HttpGetter();
-                getter.execute("http://teach-mate.azurewebsites.net/Request/GetAllRequestsAssigned?id=" + TempDataClass.serverUserId + "&lastRequestId=0");
+                getter.execute("http://helion-helloworld-java.gids.cf.helion-dev.com/GetRequest?UserId=" + TempDataClass.serverUserId);
             }
             else{
                 progressDialog.dismiss();
@@ -250,8 +250,8 @@ public class RequestsDisplayActivity extends Fragment {
                 request.RequestString = temp.getString("RequestMessage") != null ? temp.getString("RequestMessage"): null;
                 request.RequesteUserId = temp.getString("RequesteUserId") != null ? temp.getString("RequesteUserId"): null;
                 request.RequestTime = temp.getString("RequestedTime") != null ? temp.getString("RequestedTime"): null;
-                request.RequestUserProfession = temp.getString("RequestUserProfession") != null ? temp.getString("RequestUserProfession"): null;
-                request.RequestUserProfilePhotoServerPath = temp.getString("RequestUserProfilePhotoServerPath") != null ? temp.getString("RequestUserProfilePhotoServerPath"): null;
+                //request.RequestUserProfession = temp.getString("RequestUserProfession") != null ? temp.getString("RequestUserProfession"): null;
+                //request.RequestUserProfilePhotoServerPath = temp.getString("RequestUserProfilePhotoServerPath") != null ? temp.getString("RequestUserProfilePhotoServerPath"): null;
 
                 list.add(request);
 

@@ -91,6 +91,8 @@ public class MainActivity extends ActionBarActivity
         switch (type){
             case "request":
                 extras.putString("NotificationRequestId", getIntent().getStringExtra("NotificationRequestId"));
+                extras.putString("NotificationRequestMessage", getIntent().getStringExtra("NotificationRequestMessage"));
+                extras.putString("NotificationRequestUserName", getIntent().getStringExtra("NotificationRequestUserName"));
                 initialFragment = new RequestDisplayActivity();
                 initialFragment.setArguments(extras);
                 break;
@@ -165,7 +167,7 @@ public class MainActivity extends ActionBarActivity
             case 2:
                 initialFragment = new MyRequests();
                 break;
-            case 6:
+            case 3:
                 initialFragment = new AboutFragment();
                 break;
             default:

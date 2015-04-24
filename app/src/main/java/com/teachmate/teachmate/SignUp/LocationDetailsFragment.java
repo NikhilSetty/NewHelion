@@ -21,7 +21,6 @@ import com.teachmate.teachmate.Base64;
 import com.teachmate.teachmate.DBHandlers.UserModelDBHandler;
 import com.teachmate.teachmate.R;
 import com.teachmate.teachmate.TempDataClass;
-import com.teachmate.teachmate.models.DeviceInfoModel;
 import com.teachmate.teachmate.models.UserModel;
 
 import org.apache.http.HttpEntity;
@@ -408,7 +407,7 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
             }
 
             HttpSignUpAsyncTask signUpUser = new HttpSignUpAsyncTask();
-            signUpUser.execute("http://teach-mate.azurewebsites.net/User/AddUser");
+            signUpUser.execute("http://helion-helloworld-java.gids.cf.helion-dev.com/AddUser");
 
             return;
         }
@@ -438,7 +437,7 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
                     UserModelDBHandler.InsertProfile(getActivity().getApplicationContext(), NewSignUpActicity.userModel);
 
                     HttpPostRegIdToServer regIdPost = new HttpPostRegIdToServer();
-                    regIdPost.execute("http://teach-mate.azurewebsites.net/User/UpdateRegId");
+                    regIdPost.execute("http://helion-helloworld-java.gids.cf.helion-dev.com/updateregid");
                 }
                 else{
                     ((NewSignUpActicity)getActivity()).dismissProgressDialog();
@@ -465,6 +464,7 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
             jsonObject.put("EmailId", NewSignUpActicity.userModel.EmailId);
             jsonObject.put("Address1", _editTextAddress);
             jsonObject.put("PinCode1", _editTextPinCode);
+            jsonObject.put("Password", "1234");
             jsonObject.put("Latitude1", lattitude1);
             jsonObject.put("Longitude1", longitude1);
             json = jsonObject.toString();

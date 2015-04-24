@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,7 +24,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
 import com.teachmate.teachmate.DBHandlers.RequestsDBHandler;
 import com.teachmate.teachmate.Requests.MyRequests;
 import com.teachmate.teachmate.models.Requests;
@@ -93,15 +91,15 @@ public class HomeFragment extends Fragment {
 
         profilePhoto = (ImageView) layout.findViewById(R.id.imageViewProfilePhoto);
 
-        if(TempDataClass.profilePhotoLocalPath.isEmpty()){
+        /*if(TempDataClass.profilePhotoLocalPath.isEmpty()){
             Picasso.with(activity.getApplicationContext()).load(TempDataClass.profilePhotoServerPath).into(profilePhoto);
         }
         else{
             profilePhoto.setImageBitmap(BitmapFactory.decodeFile(TempDataClass.profilePhotoLocalPath));
-        }
+        }*/
 
         buttonNewRequest = (Button) layout.findViewById(R.id.buttonNewRequest);
-        buttonNewQuestion = (Button) layout.findViewById(R.id.buttonNewQuestion);
+        //buttonNewQuestion = (Button) layout.findViewById(R.id.buttonNewQuestion);
 
         newRequest = new Requests();
 
@@ -185,7 +183,7 @@ public class HomeFragment extends Fragment {
                             }
                             progressDialog.show();
                             HttpAsyncTaskPOST newPost = new HttpAsyncTaskPOST();
-                            newPost.execute("http://teach-mate.azurewebsites.net/Request/SendRequestNotification");
+                            newPost.execute("http://helion-helloworld-java.gids.cf.helion-dev.com/AddRequest");
                         }
                     }
                 });
@@ -220,18 +218,18 @@ public class HomeFragment extends Fragment {
             newRequest.RequestString = newRequestString;
             if(isCurrentLocation){
                 jsonObject.put("IsCurrent", "true");
-                jsonObject.put("Latitude", TempDataClass.currentLattitude);
-                jsonObject.put("Longitude", TempDataClass.currentLongitude);
+                jsonObject.put("CurrentLatitude", TempDataClass.currentLattitude);
+                jsonObject.put("CurrentLongitude", TempDataClass.currentLongitude);
             }
             else {
                 jsonObject.put("IsCurrent", "false");
-                jsonObject.put("Longitude", 0);
-                jsonObject.put("Longitude", 0);
+                jsonObject.put("CurrentLatitude", 0);
+                jsonObject.put("CurrentLongitude", 0);
             }
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             String currentDateandTime = sdf.format(new Date());
             newRequest.RequestTime = currentDateandTime;
-            jsonObject.put("TimeOfRequest", currentDateandTime);
+            jsonObject.put("TimeGenerated", currentDateandTime);
 
 
 
