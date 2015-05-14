@@ -125,13 +125,13 @@ public class GcmIntentService extends IntentService {
                         requestMesssage = extras.getString("message");
                         break;
                     case 4://New Response Notification
-                        message = extras.getString("ResponseMessage");
+                        message = extras.getString("Message");
                         username = extras.getString("ResponseUserName");
                         requestId = extras.getString("RequestId");
-                        userId = extras.getString("ResponseUserId");
+                        userId = extras.getString("UserId");
                         responseId = extras.getString("ResponseId");
-                        responseUserProfession = extras.getString("Profession");
-                        responseUserProfilePath = extras.getString("ProfilePhotoUrl");
+                        responseUserProfession = "";
+                        responseUserProfilePath = "";
                         break;
                     case 5:
                         chatChatId = extras.getString("ChatId");

@@ -1,5 +1,16 @@
 <resources>
 
     <color name="black_overlay">#66000000</color>
+    <color name="color_100">#B3E5FC</color>
+    <color name="color_500">#03A9F4</color>
+    <color name="color_800">#0277BD</color>
+    <color name="color_300">#4FC3F7</color>
+    <color name="color_900">#01579B</color>
+    <color name="accent">#FFFFFF</color>
+
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_200">#EEEEEE</color>
+    <color name="grey_300">#E0E0E0</color>
+
 
 </resources>

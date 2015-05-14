@@ -19,7 +19,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.teachmate.teachmate.FragmentTitles;
 import com.teachmate.teachmate.MainActivity;
@@ -63,6 +62,9 @@ public class ViewResponsesForARequest extends Fragment {
     RelativeLayout listViewLayout;
     RelativeLayout errorLayout;
 
+    static List<Responses> resumeList;
+    boolean isFromDirect = true;
+
     public ViewResponsesForARequest() {
         // Required empty public constructor
     }
@@ -81,7 +83,6 @@ public class ViewResponsesForARequest extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Looking for Responses...");
-        progressDialog.show();
 
         listViewResponses = (ListView) layout.findViewById(R.id.listViewMyRequestsResponsesDisplay);
 
@@ -103,10 +104,30 @@ public class ViewResponsesForARequest extends Fragment {
         requestString.setText(currentRequest.RequestString);
         requestTime.setText(currentRequest.RequestTime);
 
-        HttpGetter getter = new HttpGetter();
-        getter.execute("http://teach-mate.azurewebsites.net/Response/GetAllResponsesForARequest?id="+ currentRequest.RequestID+"&lastResponseId=0");
+        if(isFromDirect) {
+            progressDialog.show();
+            HttpGetter getter = new HttpGetter();
+            getter.execute("http://helion-helloworld-java.gids.cf.helion-dev.com/RetrieveResponse?RequestId=" + currentRequest.RequestID);
+        }else{
+            isFromDirect = true;
+        }
 
         return layout;
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        isFromDirect = false;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(resumeList != null) {
+            populateListView(resumeList);
+            isFromDirect = false;
+        }
     }
 
     private class HttpGetter extends AsyncTask<String, Void, String> {
@@ -152,6 +173,8 @@ public class ViewResponsesForARequest extends Fragment {
                     listViewLayout.setVisibility(View.VISIBLE);
                     errorLayout.setVisibility(View.GONE);
                     List<Responses> list = GetObjectsFromResponse(result);
+                    resumeList = new ArrayList<>();
+                    resumeList = list;
                     if(list != null){
                         populateListView(list);
                     }
@@ -243,12 +266,12 @@ public class ViewResponsesForARequest extends Fragment {
                 JSONObject temp = contacts.getJSONObject(i);
 
                 response.RequestId = currentRequest.RequestID;
-                response.ResponseId= temp.getString("ResponseId") != null ? temp.getString("ResponseId"): null;
-                response.ResponseString= temp.getString("ResponseString") != null ? temp.getString("ResponseString"): null;
-                response.ResponseUserId = temp.getString("ResponseUserId") != null ? temp.getString("ResponseUserId"): null;
-                response.ResponseUserName = temp.getString("ResponseUserName") != null ? temp.getString("ResponseUserName"): null;
-                response.ResponseUserProfession = temp.getString("ResponseUserProfession") != null ? temp.getString("ResponseUserProfession"): null;
-                response.ResponseUserProfilePhotoServerPath = temp.getString("ResponseUserProfilePhotoServerPath") != null ? temp.getString("ResponseUserProfilePhotoServerPath"): null;
+                response.ResponseId= temp.getString("ResponseId") != null ? temp.getString("ResponseId"): "";
+                response.ResponseString= temp.getString("ResponseString") != null ? temp.getString("ResponseString"): "";
+                response.ResponseUserId = temp.getString("ResponseUserId") != null ? temp.getString("ResponseUserId"): "";
+                response.ResponseUserName = temp.getString("ResponseUserName") != null ? temp.getString("ResponseUserName"): "";
+                response.ResponseUserProfession = "";
+                response.ResponseUserProfilePhotoServerPath = "";
 
                 list.add(response);
 
